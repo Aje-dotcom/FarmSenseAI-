@@ -1,0 +1,18 @@
+{
+  "protocol_version": "1.0",
+  "node_id": "NG-FCT-NODE-042",
+  "qr_pairing_hash": "a8f3b20c9e",
+  "timestamp_utc": "2026-09-21T22:55:00Z",
+  "telemetry": {
+    "soil_moisture_pct": 21.4,
+    "soil_ph": 6.3,
+    "ambient_temp_c": 31.8,
+    "canopy_humidity_pct": 78.2,
+    "npk_mg_kg": { "n": 35, "p": 12, "k": 45 }
+  },
+  "asset_context": {
+    "crop_type": "Maize",
+    "growth_stage": "Vegetative-V6",
+    "field_sector": "North-Quadrant"
+  }
+}

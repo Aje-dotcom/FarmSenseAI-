@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FarmSense AI - Analytics & Event Center</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0f1f17; color: #fff; margin: 0; padding: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .card { background: #1a2e24; border: 1px solid #2e4a3b; border-radius: 8px; padding: 16px; }
+    .metric-value { font-size: 2rem; font-weight: bold; color: #4ade80; margin: 8px 0; }
+    .alert-card { background: #3b1818; border-left: 5px solid #ef4444; border-radius: 4px; padding: 12px; margin-bottom: 12px; }
+    .alert-title { font-weight: bold; color: #fca5a5; display: flex; justify-content: space-between; }
+    .alert-desc { font-size: 0.9rem; color: #fecaca; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <h2>FarmSense AI Telemetry & Explainability Center</h2>
+
+  <div class="grid">
+    <div class="card">
+      <div>Avg Soil Moisture</div>
+      <div class="metric-value" id="val-moisture">--%</div>
+      <small>Target Range: 45% - 65%</small>
+    </div>
+    <div class="card">
+      <div>Ambient Canopy Temp</div>
+      <div class="metric-value" id="val-temp">--°C</div>
+      <small>Heat Stress Warning: > 38°C</small>
+    </div>
+    <div class="card">
+      <div>Top Detected Pathology</div>
+      <div class="metric-value" id="val-disease">None</div>
+      <small id="val-disease-count">0 incidents logged</small>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 28px;">Actuator Turn-Off Events & Root-Cause Explanations</h3>
+  <div id="event-feed">Loading events...</div>
+
+  <script>
+    async function updateDashboard() {
+      try {
+        const res = await fetch('/api/analytics/summary?window=24');
+        const data = await res.json();
+
+        // 1. Update Metrics
+        document.getElementById('val-moisture').innerText = 
+          data.environmental_summary.avg_moisture ? `${data.environmental_summary.avg_moisture.toFixed(1)}%` : 'N/A';
+        document.getElementById('val-temp').innerText = 
+          data.environmental_summary.avg_temp ? `${data.environmental_summary.avg_temp.toFixed(1)}°C` : 'N/A';
+
+        if (data.disease_distribution && data.disease_distribution.length > 0) {
+          const topDisease = data.disease_distribution[0];
+          document.getElementById('val-disease').innerText = topDisease.disease;
+          document.getElementById('val-disease-count').innerText = `${topDisease.count} cases identified`;
+        }
+
+        // 2. Render Real-Time Explanations for Turn-Off Events
+        const feed = document.getElementById('event-feed');
+        if (!data.recent_turn_off_events || data.recent_turn_off_events.length === 0) {
+          feed.innerHTML = "<div class='card'>No turn-off events recorded in this cycle.</div>";
+          return;
+        }
+
+        feed.innerHTML = data.recent_turn_off_events.map(event => `
+          <div class="alert-card">
+            <div class="alert-title">
+              <span>🛑 ${event.actuator_type.toUpperCase()} TURN-OFF: ${event.trigger_cause}</span>
+              <small>${new Date(event.timestamp).toLocaleTimeString()}</small>
+            </div>
+            <div class="alert-desc">${event.explanation}</div>
+          </div>
+        `).join('');
+      } catch (err) {
+        console.error("Dashboard synchronization error:", err);
+      }
+    }
+
+    updateDashboard();
+    setInterval(updateDashboard, 5000); // 5-second polling interval
+  </script>
+</body>
+</html>

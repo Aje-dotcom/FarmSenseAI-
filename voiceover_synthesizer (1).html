@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmSense AI - Voiceover Synthesizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc; /* Slate 50 */
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(30, 41, 59, 0.5); 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #10b981; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="glass-panel max-w-2xl w-full rounded-2xl p-8 shadow-2xl">
+        <div class="flex items-center gap-4 mb-6 border-b border-slate-700 pb-4">
+            <div class="w-12 h-12 bg-emerald-600 rounded-full flex items-center justify-center text-2xl">
+                🎙️
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold text-emerald-400">FarmSense AI Voiceover</h1>
+                <p class="text-slate-400 text-sm">Full 3-Minute Script | Narrator: @yourengr</p>
+            </div>
+        </div>
+
+        <div class="bg-slate-800 rounded-xl p-4 mb-6 border border-slate-700">
+            <h2 class="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wider">Tune to your barren tone</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs text-slate-400 mb-1">Select Voice</label>
+                    <select id="voice-select" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm text-white focus:outline-none focus:border-emerald-500"></select>
+                </div>
+                <div class="flex gap-4">
+                    <div class="flex-1">
+                        <label class="block text-xs text-slate-400 mb-1">Speed (Pacing)</label>
+                        <input type="range" id="rate" min="0.5" max="1.5" value="0.85" step="0.1" class="w-full accent-emerald-500">
+                    </div>
+                    <div class="flex-1">
+                        <label class="block text-xs text-slate-400 mb-1">Pitch (Flat/Barren)</label>
+                        <input type="range" id="pitch" min="0.1" max="1.5" value="0.7" step="0.1" class="w-full accent-emerald-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-4 mb-8 h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">0:00 - 0:10</span>
+                <p id="text-1" class="text-lg leading-relaxed">"Hi, My name is Ekene Emmanuel Ajemba. Welcome to FarmSense AI, a pre-farming and crop protection platform built for the 3MTT and MIT Open Learning Universal AI Innovation."</p>
+            </div>
+            
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">0:10 - 0:20</span>
+                <p id="text-2" class="text-lg leading-relaxed">"Smallholder farmers across rural Nigeria face devastating crop losses due to undetected plant diseases and delayed pest intervention."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">0:20 - 0:30</span>
+                <p id="text-3" class="text-lg leading-relaxed">"Existing solutions assume high bandwidth and fluency in English, leaving millions of indigenous-speaking farmers behind."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-amber-500 hover:bg-slate-800 transition relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-amber-500 text-black text-xs font-bold px-2 py-1 rounded-bl-lg">Core Innovation</div>
+                <span class="text-xs text-amber-400 font-mono mb-1 block">0:30 - 0:40</span>
+                <p id="text-4" class="text-lg leading-relaxed">"FarmSense AI changes this through a multimodal, edge-ready architecture accessible directly via mobile devices."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">0:40 - 0:50</span>
+                <p id="text-5" class="text-lg leading-relaxed">"Our quantized vision model instantly identifies crop pathologies on-device without relying on heavy cloud latency."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">0:50 - 1:00</span>
+                <p id="text-6" class="text-lg leading-relaxed">"Farmers query the assistant through spoken natural language, removing literacy barriers completely."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">1:00 - 1:10</span>
+                <p id="text-7" class="text-lg leading-relaxed">"Using Retrieval-Augmented Generation, FarmSense grounds its answers in verified local remedies rather than generic web text."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">1:10 - 1:20</span>
+                <p id="text-8" class="text-lg leading-relaxed">"The response is delivered directly via the device speaker, offering clear, step-by-step guidance hands-free in the field."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">1:20 - 1:30</span>
+                <p id="text-9" class="text-lg leading-relaxed">"Responsible AI principles are baked in: every recommendation includes confidence scores and clear safety guidance."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">1:30 - 1:40</span>
+                <p id="text-10" class="text-lg leading-relaxed">"To ground diagnosis in microclimate context, FarmSense AI natively pairs with field IoT hardware via instant QR scanning."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">1:40 - 1:50</span>
+                <p id="text-11" class="text-lg leading-relaxed">"Live telemetry streams soil moisture, temperature, and nutrient data directly to the orchestration pipeline."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">1:50 - 2:00</span>
+                <p id="text-12" class="text-lg leading-relaxed">"The platform links environmental readings directly to automated field actuators, optimizing irrigation cycles."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">2:00 - 2:10</span>
+                <p id="text-13" class="text-lg leading-relaxed">"Extension supervisors access the real-time analytics center to track disease outbreaks across regional farm clusters."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">2:10 - 2:20</span>
+                <p id="text-14" class="text-lg leading-relaxed">"When automated field hardware halts, the system doesn't leave operators guessing."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">2:20 - 2:30</span>
+                <p id="text-15" class="text-lg leading-relaxed">"Our Explainable AI engine provides immediate causal attribution, clarifying why the shutdown occurred to safeguard crops."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">2:30 - 2:40</span>
+                <p id="text-16" class="text-lg leading-relaxed">"Built using a lightweight Flask backend, edge-quantized vision models, and low-latency audio pipelines."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">2:40 - 2:50</span>
+                <p id="text-17" class="text-lg leading-relaxed">"Our open repository provides full MVP deployment instructions and a clear hardware roadmap for edge LoRaWAN deployment."</p>
+            </div>
+
+            <div class="p-4 rounded-lg bg-slate-800/50 border-l-4 border-emerald-500 hover:bg-slate-800 transition">
+                <span class="text-xs text-emerald-400 font-mono mb-1 block">2:50 - 3:00</span>
+                <p id="text-18" class="text-lg leading-relaxed">"FarmSense AI: Bridging language, vision, and IoT to power the future of African agriculture. Thank you."</p>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-4">
+            <button id="play-btn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-emerald-500/30 transition transform hover:-translate-y-1 flex items-center gap-2">
+                ▶️ Play Full Script (3 Minutes)
+            </button>
+            <button id="stop-btn" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition flex items-center gap-2">
+                ⏹️ Stop
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const synth = window.speechSynthesis;
+        const voiceSelect = document.getElementById('voice-select');
+        const playBtn = document.getElementById('play-btn');
+        const stopBtn = document.getElementById('stop-btn');
+        
+        let voices = [];
+
+        function populateVoiceList() {
+            voices = synth.getVoices();
+            voiceSelect.innerHTML = '';
+            
+            // Try to prioritize English voices, particularly UK or African accents if available in the browser
+            const preferredVoices = voices.filter(v => v.lang.includes('en-NG') || v.lang.includes('en-GB') || v.lang.includes('en-US'));
+            const voicesToUse = preferredVoices.length > 0 ? preferredVoices : voices;
+
+            voicesToUse.forEach((voice) => {
+                const option = document.createElement('option');
+                option.textContent = `${voice.name} (${voice.lang})`;
+                option.value = voice.name;
+                voiceSelect.appendChild(option);
+            });
+        }
+
+        populateVoiceList();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoiceList;
+        }
+
+        function speak() {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+
+            let fullScript = "";
+            for (let i = 1; i <= 18; i++) {
+                fullScript += document.getElementById('text-' + i).innerText + " ";
+            }
+
+            const utterThis = new SpeechSynthesisUtterance(fullScript);
+            
+            // Apply voice settings
+            const selectedOption = voiceSelect.value;
+            for (let i = 0; i < voices.length; i++) {
+                if (voices[i].name === selectedOption) {
+                    utterThis.voice = voices[i];
+                    break;
+                }
+            }
+            
+            // Apply pitch and rate
+            utterThis.pitch = document.getElementById('pitch').value;
+            utterThis.rate = document.getElementById('rate').value; // Default 0.9 for better pacing
+
+            synth.speak(utterThis);
+        }
+
+        playBtn.addEventListener('click', speak);
+        
+        stopBtn.addEventListener('click', () => {
+            synth.cancel();
+        });
+    </script>
+</body>
+</html>
