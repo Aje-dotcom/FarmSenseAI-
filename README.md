@@ -1,4 +1,4 @@
-# FarmSenseAI-
+# FarmSense AI
 A well-structured repository of my 3MTT and MIT Open Learning innovation and evaluation. For an AI-driven, hardware-integrated project like FarmSense AI, this GitHub repo presence is needed to instantly communicate the blueprint and architecture, even though some of the IoT edge components are still in the pipeline. The system has a multi-agent architecture that can handle multimodal inputs (images and voice), route queries, and operate within the offline-first and low-bandwidth constraints of rural environments.
 # 🌾 FarmSense AI: Hyperlocal Multilingual Crop Disease & Advisory Assistant
 
