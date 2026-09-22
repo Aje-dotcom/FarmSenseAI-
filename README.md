@@ -21,7 +21,7 @@ FarmSense AI bridges this digital divide through a multimodal, agentic architect
 * **Frontend:** HTML5, JS (Native BarcodeDetector API for IoT QR pairing)
 
 ## 🚀 Quick Start (Local Deployment)
-1. Clone the repository: `git clone https://github.com/yourusername/FarmSense-AI.git`
+1. Clone the repository: `git clone https://github.com/aje-dotcom/FarmSense-AI.git`
 2. Navigate to the backend: `cd FarmSense-AI/backend`
 3. Install dependencies: `pip install -r ../requirements.txt`
 4. Run the orchestration server: `python app.py`
